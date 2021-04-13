@@ -7,17 +7,20 @@ function App() {
     {
       id: 1,
       text: "task 1",
-      day: "Monday"
+      day: "Monday",
+      reminder: true,
     },
     {
       id: 2,
       text: "task 2",
-      day: "Wednesday"
+      day: "Wednesday",
+      reminder: true,
     },
     {
       id: 3,
       text: "task 3",
-      day: "Friday"
+      day: "Friday",
+      reminder: false,
     },
   ])
 
@@ -25,11 +28,15 @@ function App() {
     setTasks(tasks.filter(task => task.id !== id))
   }
 
+  const toggleReminder = id => {
+    setTasks(tasks.map(task => task.id === id ? { ...task, reminder: !task.reminder } : task))
+  }
+
   return (
     <div className="container">
       <Header />
       { tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} />
+        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
         "No tasks."
       )}
